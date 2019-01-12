@@ -81,6 +81,16 @@ void Scorpion::drawBody()
     glPopMatrix();
 }
 
+void Scorpion::drawTail()
+{
+    glPushMatrix();
+    glTranslatef(-0.5, -0.5, 0);
+    glRotatef(bodyCount, 0.5, 0, 1);
+    glScalef(0.5, 0.5, 1);
+    glutSolidSphere(1.0, 100, 100);
+    glPopMatrix();
+}
+
 void Scorpion::legPartsLeft(GLfloat x)
 {
     glPushMatrix();
@@ -340,7 +350,6 @@ void Scorpion::moveBody()
     }
 }
 
-
 void Scorpion::drawScorpion()
 {
     glPushMatrix();
@@ -349,6 +358,7 @@ void Scorpion::drawScorpion()
     glMaterialfv( GL_FRONT, GL_DIFFUSE, skin );
 
     drawBody();
+    drawTail();
     drawLegsleft();
     drawLegsright();
     glPopMatrix();

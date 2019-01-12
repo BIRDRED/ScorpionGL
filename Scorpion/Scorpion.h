@@ -5,9 +5,9 @@
 
 class Scorpion
 {
-public:
+  public:
     Scorpion();
-    Scorpion( GLfloat skinColor[], GLfloat eyesColor[] );
+    Scorpion(GLfloat skinColor[], GLfloat eyesColor[]);
     //void changeRotation(int change);
     //void move( GLfloat x, GLfloat y, GLfloat z );
     void drawScorpion();
@@ -18,35 +18,34 @@ public:
     GLfloat getX() const;
     GLfloat getY() const;
     GLfloat getZ() const;
-    
-    
-private:
+
+  private:
     GLfloat eyes[4];
     GLfloat skin[4];
     GLfloat moveX;
     GLfloat moveY;
     GLfloat moveZ;
     GLfloat rotation;
-    
+
     bool leftSideForward;
     bool rightSideForward;
-    
+
     GLfloat leftSideCount;
     GLfloat rightSideCount;
-    
+
     void drawEyes();
     void drawBody();
+    void drawTail();
     void drawLegsleft();
     void drawLegsright();
 
     void legPartsLeft(GLfloat);
-    
+
     void legPartsRight(GLfloat);
-    
+
     GLfloat bodyCount;
-    
-    bool bodyUpside; 
-    
+
+    bool bodyUpside;
 };
 
 #endif
