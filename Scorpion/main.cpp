@@ -20,9 +20,9 @@ int main( int argc, char** argv ) {
     glutCreateWindow( "SCORPION OPENGL" );
     glutDisplayFunc( display );
     glutReshapeFunc( reshape );
-    //glutKeyboardFunc( keyPressed );
-    //glutSpecialFunc( keySpecial );
-    //glutIdleFunc( display );
+    glutKeyboardFunc( keyPressed );
+    glutSpecialFunc( keySpecial );
+    glutIdleFunc( display );
     init();
     glutMainLoop();
     
