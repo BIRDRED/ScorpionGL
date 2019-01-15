@@ -143,7 +143,7 @@ void Scorpion::drawBody()
     
     glTranslatef(-2.6, -0.5, 0.0);
     glRotatef(bodyCount, 0, 0, 1);
-    glScalef(1.7, 0.8, 1);
+    glScalef(1.7, 0.5, 1);
 
 
     GLUquadric *quad = gluNewQuadric();
