@@ -3,7 +3,7 @@
 
 const float PI = 3.14;
 
-Scorpion spider;
+Scorpion scorpion;
 Scenery scene;
 
 GLuint texture[10];
@@ -123,50 +123,50 @@ void keyPressed(unsigned char key, int x, int y)
 void keySpecial(int key, int x, int y)
 {
     float quant = 0.13;
-    GLfloat moveX = quant * cos(spider.getRotation() * PI / 180);
-    GLfloat moveZ = quant * sin(spider.getRotation() * PI / 180);
+    GLfloat moveX = quant * cos(scorpion.getRotation() * PI / 180);
+    GLfloat moveZ = quant * sin(scorpion.getRotation() * PI / 180);
 
     switch (key)
     {
     case GLUT_KEY_UP:
         //warunek øeby pajπk nie wychodzi≥ poza planszÍ
-        if (spider.getX() - moveX > -37.5 && spider.getX() - moveX < 47 && spider.getZ() + moveZ < 56.5 && spider.getZ() + moveZ > -27)
+        if (scorpion.getX() - moveX > -37.5 && scorpion.getX() - moveX < 47 && scorpion.getZ() + moveZ < 56.5 && scorpion.getZ() + moveZ > -27)
         {
-            //spider.move( -moveX, 0.0, moveZ );
+            //scorpion.move( -moveX, 0.0, moveZ );
             scene.position_x -= moveX;
             scene.position_z += moveZ;
         }
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
 
         break;
 
     case GLUT_KEY_DOWN:
         // warunek øeby pajπk nie wychodzi≥ poza planszÍ
-        if (spider.getX() + moveX > -37.5 && spider.getX() + moveX < 47 && spider.getZ() - moveZ < 56.5 && spider.getZ() - moveZ > -27)
+        if (scorpion.getX() + moveX > -37.5 && scorpion.getX() + moveX < 47 && scorpion.getZ() - moveZ < 56.5 && scorpion.getZ() - moveZ > -27)
         {
-            //spider.move( moveX, 0.0, -moveZ );
+            //scorpion.move( moveX, 0.0, -moveZ );
             scene.position_x += moveX;
             scene.position_z -= moveZ;
         }
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
         break;
 
     case GLUT_KEY_LEFT:
-        //spider.changeRotation( 4 );
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        //scorpion.changeRotation( 4 );
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
         break;
 
     case GLUT_KEY_RIGHT:
-        //spider.changeRotation( -4 );
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        //scorpion.changeRotation( -4 );
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
         break;
     }
 }
@@ -226,7 +226,7 @@ void displayObjects()
     GLfloat skin[] = {1, 1, 0, 1.2};
     GLfloat eyes[] = {0.0, 0.0, 0.0, 1.0};
 
-    spider.drawScorpion();
+    scorpion.drawScorpion();
 }
 
 void surface(const Point &p)
