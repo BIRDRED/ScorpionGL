@@ -13,6 +13,7 @@ float angleYZ = 90;
 
 void display()
 {
+    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_TEXTURE_2D);
     glMatrixMode(GL_PROJECTION);

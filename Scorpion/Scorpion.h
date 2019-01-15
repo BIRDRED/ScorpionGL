@@ -39,9 +39,9 @@ class Scorpion
     void drawLegsleft();
     void drawLegsright();
 
-    void legPartsLeft(GLfloat);
+    void legPartsLeft(GLfloat,GLdouble);
 
-    void legPartsRight(GLfloat);
+    void legPartsRight(GLfloat,GLdouble);
 
     GLfloat bodyCount;
 

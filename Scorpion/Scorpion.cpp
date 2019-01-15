@@ -119,38 +119,41 @@ void Scorpion::drawTail()
     glPopMatrix();
 }
 
-void Scorpion::legPartsLeft(GLfloat x)
+void Scorpion::legPartsLeft(GLfloat x,GLdouble y)
 {
     glPushMatrix();
     glTranslatef(-0.5, 0.0, 0.0);
     glutSolidSphere(0.1, 10, 10);
-
+    
     glRotatef(x, 0, 0, 1);
-
+    
     glPushMatrix();
     glTranslatef(0.22, -0.6, 0.0);
     glRotatef(110, 0, 0, 1);
     glScalef(3.7, 0.2, 0.2);
-    glutSolidSphere(0.2, 50, 50);
+    glutSolidSphere(y, 50, 50);
     glPopMatrix();
     glPopMatrix();
 }
 
-void Scorpion::legPartsRight(GLfloat x)
+void Scorpion::legPartsRight(GLfloat x,GLdouble y)
 {
     glPushMatrix();
     glTranslatef(0.5, 0.0, 0.0);
     glutSolidSphere(0.1, 10, 10);
-
+    
     glRotatef(x, 0, 0, 1);
-
+    
     glPushMatrix();
     glTranslatef(-0.22, -0.6, 0.0);
     glRotatef(-110, 0, 0, 1);
     glScalef(3.7, 0.2, 0.2);
-    glutSolidSphere(0.2, 50, 50);
+    glutSolidSphere(y, 50, 50);
     glPopMatrix();
+    glutSolidSphere(0.1, 10, 10);
+    
     glPopMatrix();
+    
 }
 
 void Scorpion::drawLegsleft()
@@ -162,30 +165,53 @@ void Scorpion::drawLegsleft()
     glRotatef(80.0 + leftSideCount, 0, 1, 0);
     glTranslatef(-0.5, 0.0, 0.0);
     glRotatef(-30, 0, 0, 1);
-
     glPushMatrix();
     glScalef(3, 0.4, 0.4);
-    glutSolidSphere(0.2, 50, 50);
+    glutSolidSphere(0.3, 50, 50);
     glPopMatrix();
-    legPartsLeft(leftSideCount * 1.1);
+    glRotatef(60.0f, 0, 0, 0);
+    legPartsLeft(leftSideCount * 1.1,0.25);
+    glTranslatef(-0.3f, -1.3f, 0.0f);
+    //            glutSolidCube(0.3);
+    GLdouble cuttingPlaneX[4] = { 0.5, 0.0, 0.0, 0.0 };
+    glClipPlane(GL_CLIP_PLANE0, cuttingPlaneX);
+    glEnable(GL_CLIP_PLANE0);
+    //            glTranslatef(-0.3f, -1.3f, 0.0f);
+    
+    //              glPushMatrix();
+    glRotatef(45.0f, 0.0f, 0.0f, 0.6f);
+    glutSolidSphere(1.0f, 1.2, 1.2);
+    glScalef(0.2f, 0.5f, 0.5f);
+    GLUquadricObj *sphereQuadratic1 = gluNewQuadric();
+    gluQuadricOrientation(sphereQuadratic1, GLU_INSIDE);
+    gluQuadricNormals(sphereQuadratic1, GLU_SMOOTH);
+    gluQuadricTexture(sphereQuadratic1, GLU_TRUE);
+    gluSphere(sphereQuadratic1, 1.0, 0.6, 0.6);
+    gluDeleteQuadric(sphereQuadratic1);
+    //            glPopMatrix();
+    glDisable(GL_CLIP_PLANE0);
     glPopMatrix();
-
+    
     // PRIMEIRA PATA DIREITA
     glPushMatrix();
     glTranslatef(-4, -0.2, -0.8);
     glRotatef(rightSideCount, 1, 0, 1);
-
+    
     glRotatef(80.0 + rightSideCount, 0, 1, 0);
     glTranslatef(0.5, 0.0, 0.0);
-
+    
     glRotatef(30, 0, 0, 1);
-
+    
     glPushMatrix();
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsRight(-rightSideCount * 1.1);
+    glRotatef(60.0f, 0, 0, 0);
+    legPartsRight(-rightSideCount * 1.1,0.25);
+    glTranslatef(-0.3f, -1.3f, 0.0f);
+    glutSolidCube(0.3);
     glPopMatrix();
+
 
     //SEGUNDA PATA ESQUERDA
     glPushMatrix();
@@ -199,7 +225,7 @@ void Scorpion::drawLegsleft()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsLeft(leftSideCount * 1.1);
+    legPartsLeft(leftSideCount * 1.1,0.2);
     glPopMatrix();
 
     // SEGUNDA PATA DIREITA
@@ -216,7 +242,7 @@ void Scorpion::drawLegsleft()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsRight(-rightSideCount * 1.1);
+    legPartsRight(-rightSideCount * 1.1,0.2);
     glPopMatrix();
 
     //TERCEIRA PATA ESQUERDA
@@ -233,7 +259,7 @@ void Scorpion::drawLegsleft()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsLeft(leftSideCount * 1.1);
+    legPartsLeft(leftSideCount * 1.1,0.2);
     glPopMatrix();
 
 
@@ -251,7 +277,7 @@ void Scorpion::drawLegsleft()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsRight(-rightSideCount * 1.1);
+    legPartsRight(-rightSideCount * 1.1,0.2);
     glPopMatrix();
 
     //QUARTA PATA ESQUERDA
@@ -268,7 +294,7 @@ void Scorpion::drawLegsleft()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsLeft(leftSideCount * 1.1);
+    legPartsLeft(leftSideCount * 1.1,0.2);
     glPopMatrix();
 
     // QUARTA PATA DIREITA
@@ -285,7 +311,7 @@ void Scorpion::drawLegsleft()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsRight(-rightSideCount * 1.1);
+    legPartsRight(-rightSideCount * 1.1,0.2);
     glPopMatrix();
 
     //QUINTA PATA ESQUERDA
@@ -302,7 +328,7 @@ void Scorpion::drawLegsleft()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsLeft(leftSideCount * 1.1);
+    legPartsLeft(leftSideCount * 1.1,0.2);
     glPopMatrix();
 
 
@@ -320,7 +346,7 @@ void Scorpion::drawLegsleft()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsRight(-rightSideCount * 1.1);
+    legPartsRight(-rightSideCount * 1.1,0.2);
     glPopMatrix();
 }
 
