@@ -186,7 +186,7 @@ void init()
     glClearColor(0.3474, 0.3474, 0.3052, 1.0);
     glAlphaFunc(GL_GREATER, 0.0f);
 
-    //wlaczanie kanalu alpha
+    // canal alpha
     glEnable(GL_ALPHA_TEST);
     glEnable(GL_DEPTH_TEST);
 
@@ -194,7 +194,7 @@ void init()
     texture[SURFACE] = SOIL_load_OGL_texture( "images/rock.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_COMPRESS_TO_DXT );
     texture[BACK] = SOIL_load_OGL_texture( "images/sky.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_COMPRESS_TO_DXT );
     
-    // lightining
+    // lightning
     glMaterialfv(GL_FRONT, GL_SPECULAR, scene.mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 90.0);
     glLightfv(GL_LIGHT0, GL_AMBIENT, scene.ambientLight);
