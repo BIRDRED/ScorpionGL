@@ -8,11 +8,8 @@
 
 #include "declarations.h"
 
-
-
-
-int main( int argc, char** argv ) {
-    
+int main(int argc, char **argv)
+{
     glutInit( &argc, argv );
     glutInitWindowPosition( 0, 0 );
     glutInitWindowSize( 750, 750 );
@@ -25,6 +22,6 @@ int main( int argc, char** argv ) {
     glutIdleFunc( display );
     init();
     glutMainLoop();
-    
+
     return 0;
 }

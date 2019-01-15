@@ -236,6 +236,7 @@ void Scorpion::drawLegsleft()
     legPartsLeft(leftSideCount * 1.1);
     glPopMatrix();
 
+
     // TERCEIRA PATA DIREITA
     glPushMatrix();
     glTranslatef(-2.8, -0.2, -0.8);
@@ -303,6 +304,7 @@ void Scorpion::drawLegsleft()
     glPopMatrix();
     legPartsLeft(leftSideCount * 1.1);
     glPopMatrix();
+
 
     // QUINTA PATA DIREITA
     glPushMatrix();
