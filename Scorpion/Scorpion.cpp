@@ -3,6 +3,7 @@
 #include <iostream>
 
 // Image
+// TODO Should use same image as in basicfunctions
 class ScorpioImage
 {
   public:
@@ -479,7 +480,7 @@ void Scorpion::drawScorpion()
     glTranslatef(moveX + 0.2, -1.0, moveZ - 10);
     glRotatef(rotation, 0, 1, 0);
     // TODO Isso é o que colore o bicho
-    // glMaterialfv(GL_FRONT, GL_DIFFUSE, skin);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, skin);
 
     drawBody();
     drawTail();
