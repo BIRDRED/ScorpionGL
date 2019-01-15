@@ -183,7 +183,7 @@ void init()
     // textura do escorpiao
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_AUTO_NORMAL);
-    glClearColor(0.3474, 0.3474, 0.3052, 1.0);
+    glClearColor(1, 0.5, 0.5, 0.5);
     glAlphaFunc(GL_GREATER, 0.0f);
 
     // canal alpha
@@ -192,7 +192,8 @@ void init()
 
     // textura do chão
     texture[SURFACE] = SOIL_load_OGL_texture( "images/rock.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_COMPRESS_TO_DXT );
-    texture[BACK] = SOIL_load_OGL_texture( "images/sky.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_COMPRESS_TO_DXT );
+    // habilitar quando conseguir colorir o escorpiao
+    // texture[BACK] = SOIL_load_OGL_texture( "images/sky.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_COMPRESS_TO_DXT );
     
     // lightning
     glMaterialfv(GL_FRONT, GL_SPECULAR, scene.mat_specular);
@@ -228,21 +229,21 @@ void displayObjects()
     for (int i = 0; i < 3; ++i)
         for (int j = 0; j < 3; ++j)
         {
-            Point p(i * 100 - 40, j * 100 - 40, -40);
+            Point p(i * 80 - 40, j * 80 - 40, -40);
             back(p);
         }
     //left
     for (int i = 0; i < 3; ++i)
         for (int j = 0; j < 3; ++j)
         {
-            Point p(-40, j * 100 - 40, -40);
+            Point p(-40, j * 80 - 40, -40);
             left(p);
         }
     //right
     for (int i = 0; i < 3; ++i)
         for (int j = 0; j < 3; ++j)
         {
-            Point p(3000, j * 100 - 40, -40);
+            Point p(3000, j * 80 - 40, -40);
             right(p);
         }
 
@@ -262,30 +263,30 @@ void surface(const Point &p)
 void back(const Point &p)
 {
     Point p1 = p, p2 = p, p3 = p, p4 = p;
-    p1.x += 100;
-    p2.x += 100;
-    p2.y += 100;
-    p4.y += 100;
+    p1.x += 80;
+    p2.x += 80;
+    p2.y += 80;
+    p4.y += 80;
     draw(p1, p2, p3, p4, texture[BACK]);
 }
 
 void right(const Point &p)
 {
     Point p1 = p, p2 = p, p3 = p, p4 = p;
-    p1.y += 100;
-    p2.y += 100;
-    p2.z += 100;
-    p4.z += 100;
+    p1.y += 80;
+    p2.y += 80;
+    p2.z += 80;
+    p4.z += 80;
     draw(p1, p2, p3, p4, texture[BACK]);
 }
 
 void left(const Point &p)
 {
     Point p1 = p, p2 = p, p3 = p, p4 = p;
-    p1.y += 100;
-    p2.y += 100;
-    p2.z += 100;
-    p4.z += 100;
+    p1.y += 80;
+    p2.y += 80;
+    p2.z += 80;
+    p4.z += 80;
     draw(p1, p2, p3, p4, texture[BACK]);
 }
 

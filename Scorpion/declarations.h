@@ -79,15 +79,15 @@ struct Scenery
         mat_specular[2] = 1.0f;
         mat_specular[3] = 1.0f;
 
-        light_position[0] = 0.0f;
-        light_position[1] = 10.0f;
+        light_position[0] = 100.0f;
+        light_position[1] = 100.0f;
         light_position[2] = 0.0f;
         light_position[3] = 1.0f;
 
         //sterowanie oúwietleniem
         lightAmbientLevel = 2.0;
         lightDiffuseLevel = 1.5;
-        light_position_change = 1.0;
+        light_position_change = 50.0;
 
         fog_color[0] = 0.33f;
         fog_color[1] = 0.33f;
