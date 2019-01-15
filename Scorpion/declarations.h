@@ -87,7 +87,7 @@ struct Scenery
         //sterowanie oúwietleniem
         lightAmbientLevel = 2.0;
         lightDiffuseLevel = 1.5;
-        light_position_change = 50.0;
+        light_position_change = 1.0;
 
         fog_color[0] = 0.33f;
         fog_color[1] = 0.33f;

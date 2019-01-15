@@ -182,8 +182,7 @@ void init()
     
     // textura do escorpiao
     glEnable(GL_TEXTURE_2D);
-    glEnable(GL_AUTO_NORMAL);
-    glClearColor(1, 0.5, 0.5, 0.5);
+    glEnable(GL_AUTO_NORMAL); glClearColor(0.3474, 0.3474, 0.3052, 1.0);
     glAlphaFunc(GL_GREATER, 0.0f);
 
     // canal alpha
