@@ -1,15 +1,76 @@
 #include "declarations.h"
 #include "Scorpion.h"
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
 
 const float PI = 3.14;
 
-Scorpion spider;
+Scorpion scorpion;
 Scenery scene;
 
 GLuint texture[10];
 
 float angleXZ = -90;
 float angleYZ = 90;
+
+// Image
+class Image
+{
+  public:
+    int width;
+    int height;
+    unsigned char *data;
+    void readBMP(char *filename);
+    GLuint toTexture();
+};
+void Image::readBMP(char* filename)
+{
+    int i;
+    FILE* f = fopen(filename, "rb");
+    unsigned char info[54];
+    fread(info, sizeof(unsigned char), 54, f); // read the 54-byte header
+
+    // extract image height and width from header
+    width = *(int*)&info[18];
+    height = *(int*)&info[22];
+
+    int size = 3 * width * height;
+    data = new unsigned char[size]; // allocate 3 bytes per pixel
+    fread(data, sizeof(unsigned char), size, f); // read the rest of the data at once
+    fclose(f);
+
+    for(i = 0; i < size; i += 3)
+    {
+            unsigned char tmp = data[i];
+            data[i] = data[i+2];
+            data[i+2] = tmp;
+    }
+
+    width = width;
+    height = height;
+}
+GLuint Image::toTexture()
+{
+
+    GLuint textureId;
+    glGenTextures(1, &textureId);            //Make room for our texture
+    glBindTexture(GL_TEXTURE_2D, textureId); //Tell OpenGL which texture to edit
+
+    //Map the image to the texture
+    glTexImage2D(GL_TEXTURE_2D,    //Always GL_TEXTURE_2D
+                 0,                //0 for now
+                 GL_RGB,           //Format OpenGL uses for image
+                 width, height,    //Width and height
+                 0,                //The border of the image
+                 GL_RGB,           //GL_RGB, because pixels are stored in RGB format
+                 GL_UNSIGNED_BYTE, //GL_UNSIGNED_BYTE, because pixels are stored
+                 //as unsigned numbers
+                 data); //The actual pixel data
+
+    return textureId; //Returns the id of the texture
+}
 
 void display()
 {
@@ -123,50 +184,50 @@ void keyPressed(unsigned char key, int x, int y)
 void keySpecial(int key, int x, int y)
 {
     float quant = 0.13;
-    GLfloat moveX = quant * cos(spider.getRotation() * PI / 180);
-    GLfloat moveZ = quant * sin(spider.getRotation() * PI / 180);
+    GLfloat moveX = quant * cos(scorpion.getRotation() * PI / 180);
+    GLfloat moveZ = quant * sin(scorpion.getRotation() * PI / 180);
 
     switch (key)
     {
     case GLUT_KEY_UP:
         //warunek øeby pajπk nie wychodzi≥ poza planszÍ
-        if (spider.getX() - moveX > -37.5 && spider.getX() - moveX < 47 && spider.getZ() + moveZ < 56.5 && spider.getZ() + moveZ > -27)
+        if (scorpion.getX() - moveX > -37.5 && scorpion.getX() - moveX < 47 && scorpion.getZ() + moveZ < 56.5 && scorpion.getZ() + moveZ > -27)
         {
-            //spider.move( -moveX, 0.0, moveZ );
+            //scorpion.move( -moveX, 0.0, moveZ );
             scene.position_x -= moveX;
             scene.position_z += moveZ;
         }
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
 
         break;
 
     case GLUT_KEY_DOWN:
         // warunek øeby pajπk nie wychodzi≥ poza planszÍ
-        if (spider.getX() + moveX > -37.5 && spider.getX() + moveX < 47 && spider.getZ() - moveZ < 56.5 && spider.getZ() - moveZ > -27)
+        if (scorpion.getX() + moveX > -37.5 && scorpion.getX() + moveX < 47 && scorpion.getZ() - moveZ < 56.5 && scorpion.getZ() - moveZ > -27)
         {
-            //spider.move( moveX, 0.0, -moveZ );
+            //scorpion.move( moveX, 0.0, -moveZ );
             scene.position_x += moveX;
             scene.position_z -= moveZ;
         }
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
         break;
 
     case GLUT_KEY_LEFT:
-        //spider.changeRotation( 4 );
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        //scorpion.changeRotation( 4 );
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
         break;
 
     case GLUT_KEY_RIGHT:
-        //spider.changeRotation( -4 );
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        //scorpion.changeRotation( -4 );
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
         break;
     }
 }
@@ -187,8 +248,10 @@ void init()
     glEnable(GL_ALPHA_TEST);
     glEnable(GL_DEPTH_TEST);
 
-    //wczytywanie tekstur
-    //texture[SURFACE] = SOIL_load_OGL_texture( "rock.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_COMPRESS_TO_DXT );
+    // texture
+    Image skinTextureBmp = Image();
+    skinTextureBmp.readBMP("img/rock.bmp");
+    texture[SURFACE] = skinTextureBmp.toTexture();
 
     //ustawienia oswietlenia
     glMaterialfv(GL_FRONT, GL_SPECULAR, scene.mat_specular);
@@ -226,7 +289,7 @@ void displayObjects()
     GLfloat skin[] = {1, 1, 0, 1.2};
     GLfloat eyes[] = {0.0, 0.0, 0.0, 1.0};
 
-    spider.drawScorpion();
+    scorpion.drawScorpion();
 }
 
 void surface(const Point &p)
