@@ -1,9 +1,10 @@
 #include "declarations.h"
 #include "Scorpion.h"
+#include "SOIL.h"
 
 const float PI = 3.14;
 
-Scorpion spider;
+Scorpion scorpion;
 Scenery scene;
 
 GLuint texture[10];
@@ -123,50 +124,50 @@ void keyPressed(unsigned char key, int x, int y)
 void keySpecial(int key, int x, int y)
 {
     float quant = 0.13;
-    GLfloat moveX = quant * cos(spider.getRotation() * PI / 180);
-    GLfloat moveZ = quant * sin(spider.getRotation() * PI / 180);
+    GLfloat moveX = quant * cos(scorpion.getRotation() * PI / 180);
+    GLfloat moveZ = quant * sin(scorpion.getRotation() * PI / 180);
 
     switch (key)
     {
     case GLUT_KEY_UP:
         //warunek øeby pajπk nie wychodzi≥ poza planszÍ
-        if (spider.getX() - moveX > -37.5 && spider.getX() - moveX < 47 && spider.getZ() + moveZ < 56.5 && spider.getZ() + moveZ > -27)
+        if (scorpion.getX() - moveX > -37.5 && scorpion.getX() - moveX < 47 && scorpion.getZ() + moveZ < 56.5 && scorpion.getZ() + moveZ > -27)
         {
-            //spider.move( -moveX, 0.0, moveZ );
+            //scorpion.move( -moveX, 0.0, moveZ );
             scene.position_x -= moveX;
             scene.position_z += moveZ;
         }
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
 
         break;
 
     case GLUT_KEY_DOWN:
         // warunek øeby pajπk nie wychodzi≥ poza planszÍ
-        if (spider.getX() + moveX > -37.5 && spider.getX() + moveX < 47 && spider.getZ() - moveZ < 56.5 && spider.getZ() - moveZ > -27)
+        if (scorpion.getX() + moveX > -37.5 && scorpion.getX() + moveX < 47 && scorpion.getZ() - moveZ < 56.5 && scorpion.getZ() - moveZ > -27)
         {
-            //spider.move( moveX, 0.0, -moveZ );
+            //scorpion.move( moveX, 0.0, -moveZ );
             scene.position_x += moveX;
             scene.position_z -= moveZ;
         }
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
         break;
 
     case GLUT_KEY_LEFT:
-        //spider.changeRotation( 4 );
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        //scorpion.changeRotation( 4 );
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
         break;
 
     case GLUT_KEY_RIGHT:
-        //spider.changeRotation( -4 );
-        spider.moveLeftLegs();
-        spider.moveRightLegs();
-        spider.moveBody();
+        //scorpion.changeRotation( -4 );
+        scorpion.moveLeftLegs();
+        scorpion.moveRightLegs();
+        scorpion.moveBody();
         break;
     }
 }
@@ -174,10 +175,12 @@ void keySpecial(int key, int x, int y)
 void init()
 {
     glClearDepth(1.0f);
-    //perspektywa
+    
+    // perspectiva
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
     glDepthFunc(GL_LEQUAL);
-    //wlaczanie tekstur
+    
+    // textura do escorpiao
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_AUTO_NORMAL);
     glClearColor(0.3474, 0.3474, 0.3052, 1.0);
@@ -187,10 +190,11 @@ void init()
     glEnable(GL_ALPHA_TEST);
     glEnable(GL_DEPTH_TEST);
 
-    //wczytywanie tekstur
-    //texture[SURFACE] = SOIL_load_OGL_texture( "rock.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_COMPRESS_TO_DXT );
-
-    //ustawienia oswietlenia
+    // textura do chão
+    texture[SURFACE] = SOIL_load_OGL_texture( "images/rock.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_COMPRESS_TO_DXT );
+    texture[BACK] = SOIL_load_OGL_texture( "images/sky.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_COMPRESS_TO_DXT );
+    
+    // lightining
     glMaterialfv(GL_FRONT, GL_SPECULAR, scene.mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 90.0);
     glLightfv(GL_LIGHT0, GL_AMBIENT, scene.ambientLight);
@@ -202,41 +206,87 @@ void init()
     glEnable(GL_LIGHT1);
     glShadeModel(GL_SMOOTH);
 
-    glHint(GL_FOG_HINT, GL_NICEST);
-
-    glFogfv(GL_FOG_COLOR, scene.fog_color);
-
-    glFogf(GL_FOG_DENSITY, scene.fog_density);
-
-    glFogf(GL_FOG_MODE, GL_EXP);
-
-    glEnable(GL_FOG);
+    // fog
+    // glHint(GL_FOG_HINT, GL_NICEST);
+    // glFogfv(GL_FOG_COLOR, scene.fog_color);
+    // glFogf(GL_FOG_DENSITY, scene.fog_density);
+    // glFogf(GL_FOG_MODE, GL_EXP);
+    // glEnable(GL_FOG);
 }
 
 void displayObjects()
 {
-    //pod≥oøe
-    for (int i = 0; i < 30; ++i)
-        for (int j = 0; j < 30; ++j)
+    // surface
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
         {
-            Point p(j * 3 - 40, -2.3f, i * 3 - 40);
+            Point p(j * 100 - 40, -2.3f, i * 100 - 40);
             surface(p);
         }
 
-    GLfloat skin[] = {1, 1, 0, 1.2};
-    GLfloat eyes[] = {0.0, 0.0, 0.0, 1.0};
+    //back
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+        {
+            Point p(i * 100 - 40, j * 100 - 40, -40);
+            back(p);
+        }
+    //left
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+        {
+            Point p(-40, j * 100 - 40, -40);
+            left(p);
+        }
+    //right
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+        {
+            Point p(3000, j * 100 - 40, -40);
+            right(p);
+        }
 
-    spider.drawScorpion();
+    scorpion.drawScorpion();
 }
 
 void surface(const Point &p)
 {
     Point p1 = p, p2 = p, p3 = p, p4 = p;
-    p1.x += 3;
-    p2.x += 3;
-    p2.z += 3;
-    p4.z += 3;
+    p1.x += 100;
+    p2.x += 100;
+    p2.z += 100;
+    p4.z += 100;
     draw(p1, p2, p3, p4, texture[SURFACE]);
+}
+
+void back(const Point &p)
+{
+    Point p1 = p, p2 = p, p3 = p, p4 = p;
+    p1.x += 100;
+    p2.x += 100;
+    p2.y += 100;
+    p4.y += 100;
+    draw(p1, p2, p3, p4, texture[BACK]);
+}
+
+void right(const Point &p)
+{
+    Point p1 = p, p2 = p, p3 = p, p4 = p;
+    p1.y += 100;
+    p2.y += 100;
+    p2.z += 100;
+    p4.z += 100;
+    draw(p1, p2, p3, p4, texture[BACK]);
+}
+
+void left(const Point &p)
+{
+    Point p1 = p, p2 = p, p3 = p, p4 = p;
+    p1.y += 100;
+    p2.y += 100;
+    p2.z += 100;
+    p4.z += 100;
+    draw(p1, p2, p3, p4, texture[BACK]);
 }
 
 void draw(const Point &p1, const Point &p2, const Point &p3, const Point &p4, int texture)
