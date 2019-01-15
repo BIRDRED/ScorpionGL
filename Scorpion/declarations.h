@@ -46,7 +46,6 @@ struct Scenery
     GLfloat light_position[4];
     GLfloat fog_color[4];
     GLfloat fog_density;
-    //sterowanie oúwietleniem
     GLfloat lightAmbientLevel;
     GLfloat lightDiffuseLevel;
     GLfloat light_position_change;
