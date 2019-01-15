@@ -26,6 +26,8 @@ class Scorpion
     GLfloat moveY;
     GLfloat moveZ;
     GLfloat rotation;
+    GLuint skinTex;
+    
 
     bool leftSideForward;
     bool rightSideForward;
