@@ -10,17 +10,16 @@
 
 int main(int argc, char **argv)
 {
-
-    glutInit(&argc, argv);
-    glutInitWindowPosition(0, 0);
-    glutInitWindowSize(750, 750);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-    glutCreateWindow("SCORPION OPENGL");
-    glutDisplayFunc(display);
-    glutReshapeFunc(reshape);
-    //glutKeyboardFunc( keyPressed );
-    //glutSpecialFunc( keySpecial );
-    //glutIdleFunc( display );
+    glutInit( &argc, argv );
+    glutInitWindowPosition( 0, 0 );
+    glutInitWindowSize( 750, 750 );
+    glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH );
+    glutCreateWindow( "SCORPION OPENGL" );
+    glutDisplayFunc( display );
+    glutReshapeFunc( reshape );
+    glutKeyboardFunc( keyPressed );
+    glutSpecialFunc( keySpecial );
+    glutIdleFunc( display );
     init();
     glutMainLoop();
 

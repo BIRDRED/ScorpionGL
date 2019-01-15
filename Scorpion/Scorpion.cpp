@@ -80,6 +80,45 @@ void Scorpion::drawBody()
     glPopMatrix();
 }
 
+void Scorpion::drawTail()
+{
+    float radius = 0.3; //radius to apply in all of the tail
+    float scaleX = 1.6;
+    float scaleY = 1;
+    float scaleZ = 1;
+    float upY = 0.2;
+
+    glPushMatrix();
+    glTranslatef(-0.7, -0.2, 0);
+    glScalef(scaleX, scaleY, scaleZ);
+    glutSolidSphere(radius, 100, 100);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-0.1, 0, 0);
+    glScalef(scaleX, scaleY, scaleZ);
+    glutSolidSphere(radius, 100, 100);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.3, 0.2, 0);
+    glScalef(scaleX, scaleY, scaleZ);
+    glutSolidSphere(radius, 100, 100);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.2, 0.6, 0);
+    glScalef(scaleX, scaleY, scaleZ);
+    glutSolidSphere(radius, 100, 100);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-0.4, 0.9, 0);
+    glScalef(scaleX, scaleY, scaleZ);
+    glutSolidSphere(radius, 100, 100);
+    glPopMatrix();
+}
+
 void Scorpion::legPartsLeft(GLfloat x)
 {
     glPushMatrix();
@@ -197,6 +236,7 @@ void Scorpion::drawLegsleft()
     legPartsLeft(leftSideCount * 1.1);
     glPopMatrix();
 
+
     // TERCEIRA PATA DIREITA
     glPushMatrix();
     glTranslatef(-2.8, -0.2, -0.8);
@@ -264,6 +304,7 @@ void Scorpion::drawLegsleft()
     glPopMatrix();
     legPartsLeft(leftSideCount * 1.1);
     glPopMatrix();
+
 
     // QUINTA PATA DIREITA
     glPushMatrix();
@@ -343,6 +384,7 @@ void Scorpion::drawScorpion()
     glMaterialfv(GL_FRONT, GL_DIFFUSE, skin);
 
     drawBody();
+    drawTail();
     drawLegsleft();
     drawLegsright();
     glPopMatrix();
