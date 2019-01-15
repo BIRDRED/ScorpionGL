@@ -86,6 +86,7 @@ void Scorpion::drawTail()
     float scaleX = 1.6;
     float scaleY = 1;
     float scaleZ = 1;
+    float upY = 0.2;
 
     glPushMatrix();
     glTranslatef(-0.7, -0.2, 0);
@@ -94,25 +95,25 @@ void Scorpion::drawTail()
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-0.1, -0.1, 0);
+    glTranslatef(-0.1, 0, 0);
     glScalef(scaleX, scaleY, scaleZ);
     glutSolidSphere(radius, 100, 100);
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(0.5, 0, 0);
+    glTranslatef(0.3, 0.2, 0);
     glScalef(scaleX, scaleY, scaleZ);
     glutSolidSphere(radius, 100, 100);
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(1.1, 0.1, 0);
+    glTranslatef(0.2, 0.6, 0);
     glScalef(scaleX, scaleY, scaleZ);
     glutSolidSphere(radius, 100, 100);
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(1.7, 0.2, 0);
+    glTranslatef(-0.4, 0.9, 0);
     glScalef(scaleX, scaleY, scaleZ);
     glutSolidSphere(radius, 100, 100);
     glPopMatrix();
