@@ -253,7 +253,7 @@ void init()
     skinTextureBmp.readBMP("img/rock.bmp");
     texture[SURFACE] = skinTextureBmp.toTexture();
 
-    //ustawienia oswietlenia
+    // lightining
     glMaterialfv(GL_FRONT, GL_SPECULAR, scene.mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 90.0);
     glLightfv(GL_LIGHT0, GL_AMBIENT, scene.ambientLight);
@@ -265,14 +265,11 @@ void init()
     glEnable(GL_LIGHT1);
     glShadeModel(GL_SMOOTH);
 
+    // fog
     glHint(GL_FOG_HINT, GL_NICEST);
-
     glFogfv(GL_FOG_COLOR, scene.fog_color);
-
     glFogf(GL_FOG_DENSITY, scene.fog_density);
-
     glFogf(GL_FOG_MODE, GL_EXP);
-
     glEnable(GL_FOG);
 }
 
