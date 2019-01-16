@@ -486,11 +486,6 @@ void Scorpion::moveRightLegs4()
     }
 }
 
-
-
-
-
-
 void Scorpion::moveBody()
 {
     if (bodyUpside)

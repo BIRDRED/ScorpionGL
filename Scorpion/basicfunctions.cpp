@@ -83,13 +83,14 @@ void keyPressed(unsigned char key, int x, int y)
             break;
             
         
-        
+    //MOVIMENTOS DA CAMERA
         
     case 'q':
         scene.center_z -= quant * cos(angleXZ * PI / 180);
         scene.center_x += quant * sin(angleXZ * PI / 180);
         //angleXZ -= 1;
         break;
+            
     case 'e':
         scene.center_z += quant * cos(angleXZ * PI / 180);
         scene.center_x -= quant * sin(angleXZ * PI / 180);
@@ -107,12 +108,9 @@ void keyPressed(unsigned char key, int x, int y)
         scene.position_y -= quant * cos(angleYZ * PI / 180);
         scene.position_z -= quant * sin(angleXZ * PI / 180);
         break;
-
-    case 'h':
-        scene.position_z -= quant * cos(angleXZ * PI / 180);
-        scene.position_x += quant * sin(angleXZ * PI / 180);
-        break;
-        case 'o':
+    
+    //MOVIMENTOS DA GARRA
+    case 'o':
         scorpion.moveClaws(-1);
         break;
 
@@ -131,7 +129,6 @@ void keySpecial(int key, int x, int y)
     switch (key)
     {
     case GLUT_KEY_UP:
-        //warunek øeby pajπk nie wychodzi≥ poza planszÍ
         if (scorpion.getX() - moveX > -37.5 && scorpion.getX() - moveX < 47 && scorpion.getZ() + moveZ < 56.5 && scorpion.getZ() + moveZ > -27)
         {
             //scorpion.move( -moveX, 0.0, moveZ );

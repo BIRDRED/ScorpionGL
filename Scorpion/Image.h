@@ -1,4 +1,4 @@
-#include <GL/glut.h>
+#include "declarations.h"
 
 class Image
 {

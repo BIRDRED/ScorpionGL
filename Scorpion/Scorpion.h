@@ -17,8 +17,6 @@ class Scorpion
     Scorpion();
     Scorpion(GLfloat skinColor[], GLfloat eyesColor[]);
 
-    //void changeRotation(int change);
-    //void move( GLfloat x, GLfloat y, GLfloat z );
     void moveClaws(float change);
     void drawScorpion();
     

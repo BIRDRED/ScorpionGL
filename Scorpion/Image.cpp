@@ -27,6 +27,8 @@ void Image::readBMP(char *filename)
     width = width;
     height = height;
 }
+
+
 GLuint Image::toTexture()
 {
 
