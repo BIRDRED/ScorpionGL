@@ -16,6 +16,10 @@ class Scorpion
   public:
     Scorpion();
     Scorpion(GLfloat skinColor[], GLfloat eyesColor[]);
+
+    //void changeRotation(int change);
+    //void move( GLfloat x, GLfloat y, GLfloat z );
+    void moveClaws(float change);
     void drawScorpion();
     
     void moveLeftLegsCrap();
@@ -57,6 +61,7 @@ class Scorpion
     GLfloat moveZ;
     GLfloat rotation;
     GLuint skinTex;
+    GLfloat moveClaw;
     
     void drawEyes();
     void drawBody();

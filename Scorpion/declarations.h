@@ -124,5 +124,8 @@ void keySpecial( int key, int x, int y );
 void init();
 void displayObjects();
 void surface( const Point& p );
+void back(const Point &p);
+void left(const Point &p);
+void right(const Point &p);
 void draw( const Point& p1, const Point& p2, const Point& p3, const Point& p4, int texture );
 #endif

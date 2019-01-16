@@ -7,66 +7,11 @@
 //
 
 #include "Scorpion.h"
-#include <iomanip>
+#include "Image.h"
 #include <iostream>
 
-// Image
-// TODO Should use same image as in basicfunctions
-class ScorpioImage
-{
-  public:
-    int width;
-    int height;
-    unsigned char *data;
-    void readBMP(char *filename);
-    GLuint toTexture();
-};
-void ScorpioImage::readBMP(char *filename)
-{
-    int i;
-    FILE *f = fopen(filename, "rb");
-    unsigned char info[54];
-    fread(info, sizeof(unsigned char), 54, f); // read the 54-byte header
 
-    // extract image height and width from header
-    width = *(int *)&info[18];
-    height = *(int *)&info[22];
 
-    int size = 3 * width * height;
-    data = new unsigned char[size];              // allocate 3 bytes per pixel
-    fread(data, sizeof(unsigned char), size, f); // read the rest of the data at once
-    fclose(f);
-
-    for (i = 0; i < size; i += 3)
-    {
-        unsigned char tmp = data[i];
-        data[i] = data[i + 2];
-        data[i + 2] = tmp;
-    }
-
-    width = width;
-    height = height;
-}
-/*GLuint ScorpioImage::toTexture()
-{
-
-    GLuint textureId;
-    glGenTextures(1, &textureId);            //Make room for our texture
-    glBindTexture(GL_TEXTURE_2D, textureId); //Tell OpenGL which texture to edit
-
-    //Map the image to the texture
-    glTexImage2D(GL_TEXTURE_2D,    //Always GL_TEXTURE_2D
-                 0,                //0 for now
-                 GL_RGB,           //Format OpenGL uses for image
-                 width, height,    //Width and height
-                 0,                //The border of the image
-                 GL_RGB,           //GL_RGB, because pixels are stored in RGB format
-                 GL_UNSIGNED_BYTE, //GL_UNSIGNED_BYTE, because pixels are stored
-                 //as unsigned numbers
-                 data); //The actual pixel data
-
-    return textureId; //Returns the id of the texture
-}*/
 
 // Scorpion
 Scorpion::Scorpion()
@@ -79,9 +24,10 @@ Scorpion::Scorpion()
     skin[2] = 0.19;
     skin[3] = 1.2;
 
-//    ScorpioImage skinTextureBmp = ScorpioImage();
-//    skinTextureBmp.readBMP("img/skin.bmp");
-//    skinTex = skinTextureBmp.toTexture();
+
+    Image skinTextureBmp = Image();
+    skinTextureBmp.readBMP("img/skin.bmp");
+    skinTex = skinTextureBmp.toTexture();
 
     moveX = 0;
     moveY = 0;
@@ -120,6 +66,13 @@ Scorpion::Scorpion(GLfloat skinColor[], GLfloat eyesColor[])
     rightSideForward = false;
 }
 
+
+void Scorpion::moveClaws(float change)
+{
+    moveClaw += change;
+    if (moveClaw > 20) moveClaw = 20;
+    if (moveClaw < -20) moveClaw = -20;
+}
 
 GLfloat Scorpion::getRotation() const
 {
@@ -245,24 +198,28 @@ void Scorpion::drawLegsLeft()
     glRotatef(-30, 0, 0, 1);
     glRotatef(90, 1, 0, 0);
     glRotatef(leftSideCount * 1.1, 0, 0, 1);
+
     glPushMatrix();
     glTranslatef(0.22, -0.6, 0.0);
     glRotatef(110, 0, 0, 1);
     glScalef(2, 0.4, 0.4);
     glutSolidSphere(0.3, 30, 30);
+    glRotatef(moveClaw, 0, 1, 0);
+
+    // first claw
     glPushMatrix();
     glTranslatef(-0.3, -0.3, 0.0);
     glScalef(0.4, 0.4, 0.4);
     glutSolidSphere(0.3, 30, 30);
     glPopMatrix();
+
+    //second claw
     glPushMatrix();
     glTranslatef(-0.3, -0.3, 0.2);
     glScalef(0.4, 0.4, 0.4);
     glutSolidSphere(0.3, 30, 30);
     glPopMatrix();
     glPopMatrix();
-    
-    
     glPopMatrix();
     
     
@@ -327,6 +284,8 @@ void Scorpion::drawLegsRight()
     glRotatef(110, 0, 0, 1);
     glScalef(2, 0.4, 0.4);
     glutSolidSphere(0.3, 30, 30);
+    glRotatef(moveClaw, 0, 1, 0);
+    // garras
     glPushMatrix();
     glTranslatef(-0.3, -0.3, 0.0);
     glScalef(0.4, 0.4, 0.4);
@@ -339,8 +298,6 @@ void Scorpion::drawLegsRight()
     glPopMatrix();
     glPopMatrix();
     glPopMatrix();
-
-    
 
     // SEGUNDA PATA DIREITA
     glPushMatrix();
