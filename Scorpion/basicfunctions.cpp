@@ -293,10 +293,6 @@ void left(const Point &p)
     p2.y += 80;
     p2.z += 80;
     p4.z += 80;
-    GLfloat redDiffuseMaterial[] = {1.0, 0.0, 0.0};
-    glMaterialfv(GL_CCW, GL_EMISSION, redDiffuseMaterial);
-    // GLfloat mShininess[] = {128}; 
-    // glMaterialfv(GL_FRONT, GL_SHININESS, mShininess);
     draw(p1, p2, p3, p4, texture[BACK]);
 }
 
