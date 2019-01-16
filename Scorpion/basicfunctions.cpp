@@ -112,8 +112,7 @@ void keyPressed(unsigned char key, int x, int y)
         scene.position_z -= quant * cos(angleXZ * PI / 180);
         scene.position_x += quant * sin(angleXZ * PI / 180);
         break;
-            
-    case 'o':
+        case 'o':
         scorpion.moveClaws(-1);
         break;
 
