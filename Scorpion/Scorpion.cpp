@@ -1,6 +1,8 @@
 #include "Scorpion.h"
 #include "Image.h"
+#include <iostream>
 
+using namespace std;
 // Scorpion
 Scorpion::Scorpion()
 {
@@ -55,6 +57,13 @@ Scorpion::Scorpion(GLfloat skinColor[], GLfloat eyesColor[])
     moveY += y;
     moveZ += z;
 }*/
+
+void Scorpion::moveClaws(float change)
+{
+    moveClaw += change;
+    if (moveClaw > 20) moveClaw = 20;
+    if (moveClaw < -20) moveClaw = -20;
+}
 
 GLfloat Scorpion::getRotation() const
 {
@@ -180,28 +189,29 @@ void Scorpion::drawLegsLeft()
     glRotatef(-30, 0, 0, 1);
     glRotatef(90, 1, 0, 0);
     glRotatef(leftSideCount * 1.1, 0, 0, 1);
+
     glPushMatrix();
     glTranslatef(0.22, -0.6, 0.0);
     glRotatef(110, 0, 0, 1);
     glScalef(2, 0.4, 0.4);
     glutSolidSphere(0.3, 30, 30);
+    glRotatef(moveClaw, 0, 1, 0);
+
+    // first claw
     glPushMatrix();
     glTranslatef(-0.3, -0.3, 0.0);
     glScalef(0.4, 0.4, 0.4);
     glutSolidSphere(0.3, 30, 30);
     glPopMatrix();
+
+    //second claw
     glPushMatrix();
     glTranslatef(-0.3, -0.3, 0.2);
     glScalef(0.4, 0.4, 0.4);
     glutSolidSphere(0.3, 30, 30);
     glPopMatrix();
+
     glPopMatrix();
-    
-    // glBegin(GL_POLYGON);
-    // glVertex3d(-5.0f,-0.1f,-1.0f);
-    // glVertex3d(-5.0f,-0.1f,0.0f);
-    // glVertex3d(-5.0f,-0.2f,0.0f);
-    // glEnd();
     glPopMatrix();
     
     
@@ -282,6 +292,8 @@ void Scorpion::drawLegsRight()
     glRotatef(110, 0, 0, 1);
     glScalef(2, 0.4, 0.4);
     glutSolidSphere(0.3, 30, 30);
+    glRotatef(moveClaw, 0, 1, 0);
+    // garras
     glPushMatrix();
     glTranslatef(-0.3, -0.3, 0.0);
     glScalef(0.4, 0.4, 0.4);
@@ -294,38 +306,6 @@ void Scorpion::drawLegsRight()
     glPopMatrix();
     glPopMatrix();
     glPopMatrix();
-
-    // PRIMEIRA PATA DIREITA
-    // glPushMatrix();
-    // glTranslatef(-4, -0.2, -0.8);
-    // glRotatef(rightSideCount, 1, 0, 1);
-    // glRotatef(80.0 + rightSideCount, 0, 1, 0);
-    // glTranslatef(0.5, 0.0, 0.0);
-    // glRotatef(30, 0, 0, 1);
-    // glPushMatrix();
-    // glScalef(3, 0.4, 0.4);
-    // glutSolidSphere(0.3, 50, 50);
-    // glPopMatrix();
-    // glRotatef(60.0f, 0, 0, 0);
-    // //    legPartsRight(-rightSideCount * 1.1,0.25);
-    // glPushMatrix();
-    // glTranslatef(0.5, 0.0, 0.0);
-    // glutSolidSphere(0.1, 8, 10);
-    
-    // glRotatef(-rightSideCount * 1.1, 0, 0, 1);
-    
-    // glPushMatrix();
-    // glTranslatef(-0.22, -0.6, 0.0);
-    // glRotatef(-110, 0, 0, 1);
-    // glScalef(2, 0.4, 0.4);
-    // glutSolidSphere(0.3, 30, 30);
-    // glPopMatrix();
-    // glutSolidSphere(0.1, 10, 10);
-    
-    // glPopMatrix();
-    // glTranslatef(0.0f, -1.0f, 0.0f);
-    // glutSolidCube(0.3);
-    // glPopMatrix();
 
     // SEGUNDA PATA DIREITA
     glPushMatrix();

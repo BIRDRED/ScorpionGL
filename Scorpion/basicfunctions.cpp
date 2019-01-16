@@ -16,7 +16,7 @@ float angleYZ = 90;
 
 void display()
 {
-    
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_TEXTURE_2D);
     glMatrixMode(GL_PROJECTION);
@@ -119,6 +119,14 @@ void keyPressed(unsigned char key, int x, int y)
 
     case 'p':
         scene.changeFogDensity(-0.1);
+        break;
+
+    case 'c':
+        scorpion.moveClaws(-1);
+        break;
+
+    case 'v':
+        scorpion.moveClaws(1);
         break;
     };
 }
