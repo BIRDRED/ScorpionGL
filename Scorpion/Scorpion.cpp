@@ -231,7 +231,7 @@ void Scorpion::legPartsRight(GLfloat x, GLdouble y)
     glPopMatrix();
 }
 
-void Scorpion::drawLegsleft()
+void Scorpion::drawLegsLeft()
 {
     // PRIMEIRA PATA ESQUERDA
     glPushMatrix();
@@ -459,7 +459,7 @@ void Scorpion::drawLegsleft()
     //    glPopMatrix();
 }
 
-void Scorpion::drawLegsright()
+void Scorpion::drawLegsRight()
 {
 }
 
@@ -521,7 +521,7 @@ void Scorpion::drawScorpion()
 
     drawBody();
     drawTail();
-    drawLegsleft();
-    drawLegsright();
+    drawLegsLeft();
+    drawLegsRight();
     glPopMatrix();
 }

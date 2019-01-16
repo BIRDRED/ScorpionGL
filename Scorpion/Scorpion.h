@@ -38,8 +38,8 @@ class Scorpion
     void drawEyes();
     void drawBody();
     void drawTail();
-    void drawLegsleft();
-    void drawLegsright();
+    void drawLegsLeft();
+    void drawLegsRight();
 
     void legPartsLeft(GLfloat,GLdouble);
 
