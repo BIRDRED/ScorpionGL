@@ -1,3 +1,11 @@
+//
+//  main.cpp
+//  Scorpion
+//
+//  Created by Gustavo Melo , Bianca e Mauricio
+//  Copyright © 2019 Gustavo Melo. All rights reserved.
+//
+
 #include "Scorpion.h"
 #include <iomanip>
 #include <iostream>
@@ -39,7 +47,7 @@ void ScorpioImage::readBMP(char *filename)
     width = width;
     height = height;
 }
-GLuint ScorpioImage::toTexture()
+/*GLuint ScorpioImage::toTexture()
 {
 
     GLuint textureId;
@@ -58,7 +66,7 @@ GLuint ScorpioImage::toTexture()
                  data); //The actual pixel data
 
     return textureId; //Returns the id of the texture
-}
+}*/
 
 // Scorpion
 Scorpion::Scorpion()
@@ -71,9 +79,9 @@ Scorpion::Scorpion()
     skin[2] = 0.19;
     skin[3] = 1.2;
 
-    ScorpioImage skinTextureBmp = ScorpioImage();
-    skinTextureBmp.readBMP("img/skin.bmp");
-    skinTex = skinTextureBmp.toTexture();
+//    ScorpioImage skinTextureBmp = ScorpioImage();
+//    skinTextureBmp.readBMP("img/skin.bmp");
+//    skinTex = skinTextureBmp.toTexture();
 
     moveX = 0;
     moveY = 0;
@@ -83,7 +91,16 @@ Scorpion::Scorpion()
     rotation = 45;
 
     leftSideCount = 0.0;
+    leftSideCount2 = 0.0;
+    leftSideCount3 = 0.0;
+    leftSideCount4 = 0.0;
+
+    
     rightSideCount = 0.0;
+    rightSideCount2 = 0.0;
+    rightSideCount3 = 0.0;
+    rightSideCount4 = 0.0;
+
     leftSideForward = true;
     rightSideForward = false;
 }
@@ -103,17 +120,6 @@ Scorpion::Scorpion(GLfloat skinColor[], GLfloat eyesColor[])
     rightSideForward = false;
 }
 
-/*void Scorpion::changeRotation( int change )
-{
-    rotation += change;
-}*/
-
-/*void Scorpion::move( GLfloat x, GLfloat y, GLfloat z )
-{
-    moveX += x;
-    moveY += y;
-    moveZ += z;
-}*/
 
 GLfloat Scorpion::getRotation() const
 {
@@ -256,19 +262,15 @@ void Scorpion::drawLegsLeft()
     glPopMatrix();
     glPopMatrix();
     
-    // glBegin(GL_POLYGON);
-    // glVertex3d(-5.0f,-0.1f,-1.0f);
-    // glVertex3d(-5.0f,-0.1f,0.0f);
-    // glVertex3d(-5.0f,-0.2f,0.0f);
-    // glEnd();
+    
     glPopMatrix();
     
     
     //SEGUNDA PATA ESQUERDA
     glPushMatrix();
     glTranslatef(-3.4, -0.2, 0.8);
-    glRotatef(leftSideCount, 1, 0, 1);
-    glRotatef(80.0 + leftSideCount, 0, 1, 0);
+    glRotatef(leftSideCount2, 1, 0, 1);
+    glRotatef(80.0 + leftSideCount2, 0, 1, 0);
     glTranslatef(-0.5, 0.0, 0.0);
     glRotatef(-30, 0, 0, 1);
     
@@ -276,66 +278,50 @@ void Scorpion::drawLegsLeft()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsLeft(leftSideCount * 1.1,0.2);
+    legPartsLeft(leftSideCount2 * 1.1,0.2);
     glPopMatrix();
     
     //TERCEIRA PATA ESQUERDA
     glPushMatrix();
     glTranslatef(-2.8, -0.2, 0.8);
-    glRotatef(leftSideCount, 1, 0, 1);
-    glRotatef(80.0 + leftSideCount, 0, 1, 0);
+    glRotatef(leftSideCount3, 1, 0, 1);
+    glRotatef(80.0 + leftSideCount3, 0, 1, 0);
     glTranslatef(-0.5, 0.0, 0.0);
     glRotatef(-30, 0, 0, 1);
     glPushMatrix();
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsLeft(leftSideCount * 1.1,0.2);
+    legPartsLeft(leftSideCount3 * 1.1,0.2);
     glPopMatrix();
     
     
     //QUARTA PATA ESQUERDA
     glPushMatrix();
     glTranslatef(-2.2, -0.2, 0.8);
-    glRotatef(leftSideCount, 1, 0, 1);
-    glRotatef(80.0 + leftSideCount, 0, 1, 0);
+    glRotatef(leftSideCount4, 1, 0, 1);
+    glRotatef(80.0 + leftSideCount4, 0, 1, 0);
     glTranslatef(-0.5, 0.0, 0.0);
     glRotatef(-30, 0, 0, 1);
     glPushMatrix();
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsLeft(leftSideCount * 1.1,0.2);
+    legPartsLeft(leftSideCount4 * 1.1,0.2);
     glPopMatrix();
     
-    //QUINTA PATA ESQUERDA
-    //    glPushMatrix();
-    //    glTranslatef(-1.6, -0.2, 0.8);
-    //
-    //    glRotatef(leftSideCount, 1, 0, 1);
-    //
-    //    glRotatef(80.0 + leftSideCount, 0, 1, 0);
-    //    glTranslatef(-0.5, 0.0, 0.0);
-    //    glRotatef(-30, 0, 0, 1);
-    //
-    //    glPushMatrix();
-    //    glScalef(3, 0.4, 0.4);
-    //    glutSolidSphere(0.2, 50, 50);
-    //    glPopMatrix();
-    //    legPartsLeft(leftSideCount * 1.1,0.2);
-    //    glPopMatrix();
 }
 
 void Scorpion::drawLegsRight()
 {
     glPushMatrix();
     glTranslatef(-3.8, -0.8, -0.8);
-    glRotatef(leftSideCount, 1, 0, 1);
-    glRotatef(80.0 + leftSideCount, 0, 1, 0);
+    glRotatef(rightSideCount, 1, 0, 1);
+    glRotatef(80.0 + rightSideCount, 0, 1, 0);
     glTranslatef(-0.5, 0.0, 0.0);
     glRotatef(-30, 0, 0, 1);
     glRotatef(90, 1, 0, 0);
-    glRotatef(leftSideCount * 1.1, 0, 0, 1);
+    glRotatef(rightSideCount * 1.1, 0, 0, 1);
     glPushMatrix();
     glTranslatef(0.22, -0.6, 0.0);
     glRotatef(110, 0, 0, 1);
@@ -354,44 +340,14 @@ void Scorpion::drawLegsRight()
     glPopMatrix();
     glPopMatrix();
 
-    // PRIMEIRA PATA DIREITA
-    // glPushMatrix();
-    // glTranslatef(-4, -0.2, -0.8);
-    // glRotatef(rightSideCount, 1, 0, 1);
-    // glRotatef(80.0 + rightSideCount, 0, 1, 0);
-    // glTranslatef(0.5, 0.0, 0.0);
-    // glRotatef(30, 0, 0, 1);
-    // glPushMatrix();
-    // glScalef(3, 0.4, 0.4);
-    // glutSolidSphere(0.3, 50, 50);
-    // glPopMatrix();
-    // glRotatef(60.0f, 0, 0, 0);
-    // //    legPartsRight(-rightSideCount * 1.1,0.25);
-    // glPushMatrix();
-    // glTranslatef(0.5, 0.0, 0.0);
-    // glutSolidSphere(0.1, 8, 10);
     
-    // glRotatef(-rightSideCount * 1.1, 0, 0, 1);
-    
-    // glPushMatrix();
-    // glTranslatef(-0.22, -0.6, 0.0);
-    // glRotatef(-110, 0, 0, 1);
-    // glScalef(2, 0.4, 0.4);
-    // glutSolidSphere(0.3, 30, 30);
-    // glPopMatrix();
-    // glutSolidSphere(0.1, 10, 10);
-    
-    // glPopMatrix();
-    // glTranslatef(0.0f, -1.0f, 0.0f);
-    // glutSolidCube(0.3);
-    // glPopMatrix();
 
     // SEGUNDA PATA DIREITA
     glPushMatrix();
     glTranslatef(-3.4, -0.2, -0.8);
-    glRotatef(-rightSideCount, 1, 0, 1);
+    glRotatef(-rightSideCount2, 1, 0, 1);
     
-    glRotatef(80.0 + rightSideCount, 0, 1, 0);
+    glRotatef(80.0 + rightSideCount2, 0, 1, 0);
     glTranslatef(0.5, 0.0, 0.0);
     
     glRotatef(30, 0, 0, 1);
@@ -400,15 +356,15 @@ void Scorpion::drawLegsRight()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsRight(-rightSideCount * 1.1,0.2);
+    legPartsRight(-rightSideCount2 * 1.1,0.2);
     glPopMatrix();
     
     // TERCEIRA PATA DIREITA
     glPushMatrix();
     glTranslatef(-2.8, -0.2, -0.8);
-    glRotatef(-rightSideCount, 1, 0, 1);
+    glRotatef(-rightSideCount3, 1, 0, 1);
     
-    glRotatef(80.0 + rightSideCount, 0, 1, 0);
+    glRotatef(80.0 + rightSideCount3, 0, 1, 0);
     glTranslatef(0.5, 0.0, 0.0);
     
     glRotatef(30, 0, 0, 1);
@@ -417,15 +373,15 @@ void Scorpion::drawLegsRight()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsRight(-rightSideCount * 1.1,0.2);
+    legPartsRight(-rightSideCount3 * 1.1,0.2);
     glPopMatrix();
     
     // QUARTA PATA DIREITA
     glPushMatrix();
     glTranslatef(-2.2, -0.2, -0.8);
-    glRotatef(-rightSideCount, 1, 0, 1);
+    glRotatef(-rightSideCount4, 1, 0, 1);
     
-    glRotatef(80.0 + rightSideCount, 0, 1, 0);
+    glRotatef(80.0 + rightSideCount4, 0, 1, 0);
     glTranslatef(0.5, 0.0, 0.0);
     
     glRotatef(30, 0, 0, 1);
@@ -434,57 +390,149 @@ void Scorpion::drawLegsRight()
     glScalef(3, 0.4, 0.4);
     glutSolidSphere(0.2, 50, 50);
     glPopMatrix();
-    legPartsRight(-rightSideCount * 1.1,0.2);
+    legPartsRight(-rightSideCount4 * 1.1,0.2);
     glPopMatrix();
-    // QUINTA PATA DIREITA
-    //    glPushMatrix();
-    //    glTranslatef(-1.6, -0.2, -0.8);
-    //    glRotatef(-rightSideCount, 1, 0, 1);
-    //
-    //    glRotatef(80.0 + rightSideCount, 0, 1, 0);
-    //    glTranslatef(0.5, 0.0, 0.0);
-    //
-    //    glRotatef(30, 0, 0, 1);
-    //
-    //    glPushMatrix();
-    //    glScalef(3, 0.4, 0.4);
-    //    glutSolidSphere(0.2, 50, 50);
-    //    glPopMatrix();
-    //    legPartsRight(-rightSideCount * 1.1,0.2);
-    //    glPopMatrix();
 }
 
-void Scorpion::moveLeftLegs()
-{
-    if (leftSideForward)
-    {
-        leftSideCount += 3;
-        if (leftSideCount >= 15)
-            leftSideForward = false;
-    }
-    else
-    {
-        leftSideCount -= 3;
-        if (leftSideCount <= -15)
-            leftSideForward = true;
-    }
-}
 
-void Scorpion::moveRightLegs()
+
+//MOVIMENTO DAS PATAS - 1
+void Scorpion::moveRightLegsCrap()
 {
     if (rightSideForward)
     {
         rightSideCount += 3;
-        if (rightSideCount >= 15)
+        if (rightSideCount >= 8)
             rightSideForward = false;
     }
     else
     {
         rightSideCount -= 3;
-        if (rightSideCount <= -15)
+        if (rightSideCount <= -8)
             rightSideForward = true;
     }
 }
+
+void Scorpion::moveLeftLegsCrap()
+{
+    if (leftSideForward)
+    {
+        leftSideCount += 3;
+        if (leftSideCount >= 8)
+            leftSideForward = false;
+    }
+    else
+    {
+        leftSideCount -= 3;
+        if (leftSideCount <= -8)
+            leftSideForward = true;
+    }
+}
+
+//MOVIMENTO DAS PATAS 2
+void Scorpion::moveLeftLegs2()
+{
+    if (leftSideForward2)
+    {
+        leftSideCount2 += 3;
+        if (leftSideCount2 >= 15)
+            leftSideForward2 = false;
+    }
+    else
+    {
+        leftSideCount2 -= 3;
+        if (leftSideCount2 <= -15)
+            leftSideForward2 = true;
+    }
+}
+
+void Scorpion::moveRightLegs2()
+{
+    if (rightSideForward2)
+    {
+        rightSideCount2 += 3;
+        if (rightSideCount2 >= 15)
+            rightSideForward2 = false;
+    }
+    else
+    {
+        rightSideCount2 -= 3;
+        if (rightSideCount2 <= -15)
+            rightSideForward2 = true;
+    }
+}
+
+//MOVIMENTO DAS PATAS 3
+void Scorpion::moveLeftLegs3()
+{
+    if (leftSideForward3)
+    {
+        leftSideCount3 += 3;
+        if (leftSideCount3 >= 15)
+            leftSideForward3 = false;
+    }
+    else
+    {
+        leftSideCount3 -= 3;
+        if (leftSideCount3 <= -15)
+            leftSideForward3 = true;
+    }
+}
+
+void Scorpion::moveRightLegs3()
+{
+    if (rightSideForward3)
+    {
+        rightSideCount3 += 3;
+        if (rightSideCount3 >= 15)
+            rightSideForward3 = false;
+    }
+    else
+    {
+        rightSideCount3 -= 3;
+        if (rightSideCount3 <= -15)
+            rightSideForward3 = true;
+    }
+}
+
+
+//MOVIMENTO DAS PATAS 4
+void Scorpion::moveLeftLegs4()
+{
+    if (leftSideForward4)
+    {
+        leftSideCount4 += 3;
+        if (leftSideCount4 >= 15)
+            leftSideForward4 = false;
+    }
+    else
+    {
+        leftSideCount4 -= 3;
+        if (leftSideCount4 <= -15)
+            leftSideForward4 = true;
+    }
+}
+
+void Scorpion::moveRightLegs4()
+{
+    if (rightSideForward4)
+    {
+        rightSideCount4 += 3;
+        if (rightSideCount4 >= 15)
+            rightSideForward4 = false;
+    }
+    else
+    {
+        rightSideCount4 -= 3;
+        if (rightSideCount4 <= -15)
+            rightSideForward4 = true;
+    }
+}
+
+
+
+
+
 
 void Scorpion::moveBody()
 {

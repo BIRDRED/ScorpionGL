@@ -107,77 +107,70 @@ void keyPressed(unsigned char key, int x, int y)
     float quant = 0.2;
     switch (key)
     {
-        //obrÛt wokÛ≥ osi kamery
+    
+        case 'r':
+            scorpion.moveRightLegsCrap();
+            break;
+        
+        case 'l':
+            scorpion.moveLeftLegsCrap();
+            break;
+            
+        case 'a':
+            scorpion.moveLeftLegs2();
+            break;
+            
+        case 'z':
+            scorpion.moveRightLegs2();
+            break;
+        
+        case 's':
+            scorpion.moveLeftLegs3();
+            break;
+            
+        case 'x':
+            scorpion.moveRightLegs3();
+            break;
+            
+        case 'd':
+            scorpion.moveLeftLegs4();
+            break;
+            
+        case 'c':
+            scorpion.moveRightLegs4();
+            break;
+            
+        
+        
+        
     case 'q':
         scene.center_z -= quant * cos(angleXZ * PI / 180);
         scene.center_x += quant * sin(angleXZ * PI / 180);
         //angleXZ -= 1;
         break;
-        //obrÛt wokÛ≥ osi kamery
     case 'e':
         scene.center_z += quant * cos(angleXZ * PI / 180);
         scene.center_x -= quant * sin(angleXZ * PI / 180);
         //angleXZ += 1;
         break;
 
-        // klawisze WSAD - ruch po osi Z
     case 'w':
         scene.position_x += quant * sin(angleXZ * PI / 180);
         scene.position_y += quant * cos(angleYZ * PI / 180);
         scene.position_z += quant * sin(angleXZ * PI / 180);
         break;
 
-    case 's':
+    case 'y':
         scene.position_x -= quant * sin(angleXZ * PI / 180);
         scene.position_y -= quant * cos(angleYZ * PI / 180);
         scene.position_z -= quant * sin(angleXZ * PI / 180);
         break;
 
-    case 'a':
+    case 'h':
         scene.position_z -= quant * cos(angleXZ * PI / 180);
         scene.position_x += quant * sin(angleXZ * PI / 180);
         break;
 
-    case 'd':
-        scene.position_z += quant * cos(angleXZ * PI / 180);
-        scene.position_x -= quant * sin(angleXZ * PI / 180);
-        break;
-
-        // rf - kamera po osi Y
-    case 'r':
-        scene.position_y += 0.4;
-        break;
-
-    case 'f':
-        if (scene.position_y > 0.0)
-            scene.position_y -= 0.4;
-        break;
-
-        // tg - nachylenie gÛra-dÛ≥
-    case 't':
-        scene.look_down += 0.1;
-        break;
-
-    case 'g':
-        scene.look_down -= 0.1;
-        break;
-
-        // sterowanie úwiat≥em
-    case 'm':
-        scene.changeAmbientLevel(-0.1);
-        break;
-
-    case 'n':
-        scene.changeDiffuseLevel(-0.1);
-        break;
-
-    case 'o':
-        scene.changeFogDensity(0.1);
-        break;
-
-    case 'p':
-        scene.changeFogDensity(-0.1);
-        break;
     };
 }
 
@@ -197,36 +190,63 @@ void keySpecial(int key, int x, int y)
             scene.position_x -= moveX;
             scene.position_z += moveZ;
         }
-        scorpion.moveLeftLegs();
-        scorpion.moveRightLegs();
+        scorpion.moveLeftLegsCrap();
+        scorpion.moveLeftLegs2();
+        scorpion.moveLeftLegs3();
+        scorpion.moveLeftLegs4();
+            
+        scorpion.moveRightLegsCrap();
+        scorpion.moveRightLegs2();
+        scorpion.moveRightLegs3();
+        scorpion.moveRightLegs4();
         scorpion.moveBody();
 
         break;
 
     case GLUT_KEY_DOWN:
-        // warunek øeby pajπk nie wychodzi≥ poza planszÍ
         if (scorpion.getX() + moveX > -37.5 && scorpion.getX() + moveX < 47 && scorpion.getZ() - moveZ < 56.5 && scorpion.getZ() - moveZ > -27)
         {
             //scorpion.move( moveX, 0.0, -moveZ );
             scene.position_x += moveX;
             scene.position_z -= moveZ;
         }
-        scorpion.moveLeftLegs();
-        scorpion.moveRightLegs();
+        scorpion.moveLeftLegsCrap();
+        scorpion.moveLeftLegs2();
+        scorpion.moveLeftLegs3();
+        scorpion.moveLeftLegs4();
+            
+        scorpion.moveRightLegsCrap();
+        scorpion.moveRightLegs2();
+        scorpion.moveRightLegs3();
+        scorpion.moveRightLegs4();
         scorpion.moveBody();
         break;
 
     case GLUT_KEY_LEFT:
         //scorpion.changeRotation( 4 );
-        scorpion.moveLeftLegs();
-        scorpion.moveRightLegs();
+            scorpion.moveLeftLegsCrap();
+            scorpion.moveLeftLegs2();
+            scorpion.moveLeftLegs3();
+            scorpion.moveLeftLegs4();
+            
+            scorpion.moveRightLegsCrap();
+            scorpion.moveRightLegs2();
+            scorpion.moveRightLegs3();
+            scorpion.moveRightLegs4();
         scorpion.moveBody();
         break;
 
     case GLUT_KEY_RIGHT:
         //scorpion.changeRotation( -4 );
-        scorpion.moveLeftLegs();
-        scorpion.moveRightLegs();
+            scorpion.moveLeftLegsCrap();
+            scorpion.moveLeftLegs2();
+            scorpion.moveLeftLegs3();
+            scorpion.moveLeftLegs4();
+            
+            scorpion.moveRightLegsCrap();
+            scorpion.moveRightLegs2();
+            scorpion.moveRightLegs3();
+            scorpion.moveRightLegs4();
         scorpion.moveBody();
         break;
     }

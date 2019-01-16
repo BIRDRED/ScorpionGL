@@ -2,7 +2,7 @@
 //  main.cpp
 //  Scorpion
 //
-//  Created by Gustavo Melo on 10/01/19.
+//  Created by Gustavo Melo , Bianca e Mauricio
 //  Copyright © 2019 Gustavo Melo. All rights reserved.
 //
 

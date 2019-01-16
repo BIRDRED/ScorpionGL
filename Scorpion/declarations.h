@@ -1,3 +1,12 @@
+
+//
+//  scorpion.h
+//  Scorpion
+//
+//  Created by Gustavo Melo , Bianca e Mauricio
+//  Copyright © 2019 Gustavo Melo. All rights reserved.
+//
+
 #ifndef DECLARATIONS_H
 #define DECLARATIONS_H
 
@@ -97,55 +106,6 @@ struct Scenery
         fog_density = 0.1f;
     }
     
-    void changeAmbientLevel( float lvl )
-    {
-        lightAmbientLevel += lvl;
-        if ( lightAmbientLevel <= 0 )
-            lightAmbientLevel = 2.0;
-        else if ( lightAmbientLevel >= 2.0 )
-            lightAmbientLevel = 2.0;
-        
-        GLfloat ambient[] =
-        {
-            ambientLight[0] * lightAmbientLevel,
-            ambientLight[1] * lightAmbientLevel,
-            ambientLight[2] * lightAmbientLevel,
-            ambientLight[3] * lightAmbientLevel
-        };
-        
-        glLightfv( GL_LIGHT0, GL_AMBIENT, ambient );
-    }
-    
-    void changeDiffuseLevel( float lvl )
-    {
-        lightDiffuseLevel += lvl;
-        if ( lightDiffuseLevel <= 0 )
-            lightDiffuseLevel = 2.0;
-        else if ( lightDiffuseLevel >= 2.0 )
-            lightDiffuseLevel = 2.0;
-        
-        GLfloat newDiffuse[] =
-        {
-            diffuse[0] * lightDiffuseLevel,
-            diffuse[1] * lightDiffuseLevel,
-            diffuse[2] * lightDiffuseLevel,
-            diffuse[3] * lightDiffuseLevel
-        };
-        
-        glLightfv( GL_LIGHT1, GL_DIFFUSE, newDiffuse );
-    }
-    
-    void changeFogDensity( float lvl )
-    {
-        fog_density += lvl;
-        if ( fog_density <= 0.0 )
-            fog_density = 0.0;
-        
-        if ( fog_density >= 1.0 )
-            fog_density = 1.0;
-        
-        glFogf( GL_FOG_DENSITY, fog_density );
-    }
     
 };
 
@@ -165,5 +125,4 @@ void init();
 void displayObjects();
 void surface( const Point& p );
 void draw( const Point& p1, const Point& p2, const Point& p3, const Point& p4, int texture );
-void changeDiffuseLevel( float lvl );
 #endif
