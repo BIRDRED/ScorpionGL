@@ -1,7 +1,6 @@
 #include "declarations.h"
+#include "Image.h"
 #include "Scorpion.h"
-#include <iostream>
-#include <iomanip>
 
 using namespace std;
 
@@ -15,66 +14,9 @@ GLuint texture[10];
 float angleXZ = -90;
 float angleYZ = 90;
 
-// Image
-class Image
-{
-  public:
-    int width;
-    int height;
-    unsigned char *data;
-    void readBMP(char *filename);
-    GLuint toTexture();
-};
-void Image::readBMP(char* filename)
-{
-    int i;
-    FILE* f = fopen(filename, "rb");
-    unsigned char info[54];
-    fread(info, sizeof(unsigned char), 54, f); // read the 54-byte header
-
-    // extract image height and width from header
-    width = *(int*)&info[18];
-    height = *(int*)&info[22];
-
-    int size = 3 * width * height;
-    data = new unsigned char[size]; // allocate 3 bytes per pixel
-    fread(data, sizeof(unsigned char), size, f); // read the rest of the data at once
-    fclose(f);
-
-    for(i = 0; i < size; i += 3)
-    {
-            unsigned char tmp = data[i];
-            data[i] = data[i+2];
-            data[i+2] = tmp;
-    }
-
-    width = width;
-    height = height;
-}
-GLuint Image::toTexture()
-{
-
-    GLuint textureId;
-    glGenTextures(1, &textureId);            //Make room for our texture
-    glBindTexture(GL_TEXTURE_2D, textureId); //Tell OpenGL which texture to edit
-
-    //Map the image to the texture
-    glTexImage2D(GL_TEXTURE_2D,    //Always GL_TEXTURE_2D
-                 0,                //0 for now
-                 GL_RGB,           //Format OpenGL uses for image
-                 width, height,    //Width and height
-                 0,                //The border of the image
-                 GL_RGB,           //GL_RGB, because pixels are stored in RGB format
-                 GL_UNSIGNED_BYTE, //GL_UNSIGNED_BYTE, because pixels are stored
-                 //as unsigned numbers
-                 data); //The actual pixel data
-
-    return textureId; //Returns the id of the texture
-}
-
 void display()
 {
-    
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_TEXTURE_2D);
     glMatrixMode(GL_PROJECTION);
@@ -178,6 +120,14 @@ void keyPressed(unsigned char key, int x, int y)
     case 'p':
         scene.changeFogDensity(-0.1);
         break;
+
+    case 'c':
+        scorpion.moveClaws(-1);
+        break;
+
+    case 'v':
+        scorpion.moveClaws(1);
+        break;
     };
 }
 
@@ -235,16 +185,16 @@ void keySpecial(int key, int x, int y)
 void init()
 {
     glClearDepth(1.0f);
-    //perspektywa
+    // perspectiva
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
     glDepthFunc(GL_LEQUAL);
-    //wlaczanie tekstur
+    // textura do escorpiao
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_AUTO_NORMAL);
     glClearColor(0.3474, 0.3474, 0.3052, 1.0);
     glAlphaFunc(GL_GREATER, 0.0f);
 
-    //wlaczanie kanalu alpha
+    // alpha
     glEnable(GL_ALPHA_TEST);
     glEnable(GL_DEPTH_TEST);
 
@@ -252,8 +202,13 @@ void init()
     Image skinTextureBmp = Image();
     skinTextureBmp.readBMP("img/rock.bmp");
     texture[SURFACE] = skinTextureBmp.toTexture();
+    Image skyTextureBmp = Image();
+    skyTextureBmp.readBMP("img/sky.bmp");
+    texture[BACK] = skyTextureBmp.toTexture();
+    texture[LEFT] = skyTextureBmp.toTexture();
+    texture[RIGHT] = skyTextureBmp.toTexture();
 
-    // lightining
+    // lightning
     glMaterialfv(GL_FRONT, GL_SPECULAR, scene.mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 90.0);
     glLightfv(GL_LIGHT0, GL_AMBIENT, scene.ambientLight);
@@ -275,14 +230,34 @@ void init()
 
 void displayObjects()
 {
-    //pod≥oøe
+    //surface
     for (int i = 0; i < 30; ++i)
         for (int j = 0; j < 30; ++j)
         {
             Point p(j * 3 - 40, -2.3f, i * 3 - 40);
             surface(p);
         }
-
+    //back
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+        {
+            Point p(i * 80 - 40, j * 80 - 40, -40);
+            back(p);
+        }
+    //left
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+        {
+            Point p(-40, j * 80 - 40, -40);
+            left(p);
+        }
+    //right
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+        {
+            Point p(3000, j * 80 - 40, -40);
+            right(p);
+        }
     GLfloat skin[] = {1, 1, 0, 1.2};
     GLfloat eyes[] = {0.0, 0.0, 0.0, 1.0};
 
@@ -297,6 +272,36 @@ void surface(const Point &p)
     p2.z += 3;
     p4.z += 3;
     draw(p1, p2, p3, p4, texture[SURFACE]);
+}
+
+void back(const Point &p)
+{
+    Point p1 = p, p2 = p, p3 = p, p4 = p;
+    p1.x += 80;
+    p2.x += 80;
+    p2.y += 80;
+    p4.y += 80;
+    draw(p1, p2, p3, p4, texture[BACK]);
+}
+
+void right(const Point &p)
+{
+    Point p1 = p, p2 = p, p3 = p, p4 = p;
+    p1.y += 80;
+    p2.y += 80;
+    p2.z += 80;
+    p4.z += 80;
+    draw(p1, p2, p3, p4, texture[BACK]);
+}
+
+void left(const Point &p)
+{
+    Point p1 = p, p2 = p, p3 = p, p4 = p;
+    p1.y += 80;
+    p2.y += 80;
+    p2.z += 80;
+    p4.z += 80;
+    draw(p1, p2, p3, p4, texture[BACK]);
 }
 
 void draw(const Point &p1, const Point &p2, const Point &p3, const Point &p4, int texture)
