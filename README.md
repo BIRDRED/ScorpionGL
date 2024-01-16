@@ -1,4 +1,4 @@
-# Scorpion GL -  Web platform to manage Branches :moneybag:
+# Scorpion GL -  Scorpion Graphics with OpenGL 
 
 
 **SCORPION GL** is a tool that uses **C++** using the **OpenGL** framework to draw a scorpion as requested in the computer graphics bachelor's degree in computer science at UERJ.
